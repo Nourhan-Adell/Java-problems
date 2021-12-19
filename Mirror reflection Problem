@@ -1,0 +1,60 @@
+package com.company;
+import java.lang.*;
+public class Main {
+
+    public static void main(String[] args) {
+        // initializing a counter to the number of iterations
+        int result = 0;
+
+        // The points given in the problem statement
+        double xA = 1.0;
+        double yA = 9.95;
+
+        double xO = 2.0;
+        double yO = -6.0;
+
+        while(xO > 0.01 || xO < -0.01 || yO < 0){
+
+            //Calculate the slope of A (incident beam)
+            double slopeA = (yO - yA) / (xO - xA);
+
+            //Calculate the slope of the tangent
+            double slopeO = -xO/yO;
+
+            //Calculate the slope of B (reflected beam)
+            double tanA = (slopeA - slopeO)/(1+slopeA*slopeO);
+            double slopeB = (slopeO- tanA)/ (1+ tanA*slopeO);
+
+            //calculating the C of the reflected line B
+            double Calculated_C = yO - slopeB * xO;
+
+            //solve the quadratic equation for finding the intersection of B and the ellipse
+            // a*x^2 + b*x + c = 0
+
+            //...
+            double a = 4 + slopeB*slopeB;
+            double b = 2 * slopeB * Calculated_C;
+            double c = Calculated_C * Calculated_C - 100;
+
+
+            //Calculating the distance between the two points
+            double ans1 = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+            double ans2 = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+            ///...
+            
+            // Substituting by the new points to be continued
+            xA = xO;
+            yA = yO;
+
+            //Take the solution which is furtherst from x0
+            xO = (Math.abs(ans1 - xO) > Math.abs(ans2 - xO)) ? ans1 : ans2;
+            yO = slopeB * xO + Calculated_C;
+
+            result++;
+        }
+
+        System.out.println("The leaser beam will get out from the spherical mirror after " + result + " reflections (iterations)");
+        System.out.println("At points = (" + xO + ", " + yO);
+    }
+}
+
