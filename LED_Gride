@@ -1,0 +1,37 @@
+package com.company;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        // Our code will allow the user to input a number for making a grid
+        //as we deduced a function to do so.
+        //But at the same time our maximum number will be 1000 as we didn't trace the code after that
+        // and our Small grid that change the led state is 5*5
+
+        Scanner input = new Scanner(System.in);
+        System.out.println("Please enter a number between 5 and 1000");
+        int number = input.nextInt();
+        double result = 0;
+
+        while (number < 5 || number > 1000) {
+            System.out.println("Eror: Out of boundry. \n Please enter a number between 5 and 1000.");
+            number = input.nextInt();
+        }
+
+        if (number >= 10) {
+            result = Math.pow((number - 4), 2);
+        } else {
+            if (number % 2 == 0)
+                result = Math.pow((number - 4), 2);
+            else if (number == 5)
+                result = 25;
+            else {
+                result = Math.pow((number - (int) Math.sqrt(number)), 2);
+            }
+        }
+
+        System.out.println("The number of ON led equal: " + (int) result);
+    }
+}
